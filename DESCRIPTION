@@ -1,0 +1,24 @@
+Package: multiplexILP
+Type: Package
+Title: Multiplex PCR Design Using Integer Linear Programming
+Version: 0.1.0
+Date: 2024-01-01
+Authors@R: c(
+    person("First", "Last", email = "limeng49631@aliyun.com", role = c("aut", "cre"))
+  )
+Description: Tools for designing multiplex PCR assays using Integer Linear Programming (ILP). 
+  Provides functions to generate ILP models for primer selection, optimize constraints,
+  and parse solver outputs. Supports both single-primer and primer-pair approaches with 
+  multi-channel fluorescence considerations.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    Rcpp (>= 1.0.0),
+    ggplot2,
+    dplyr
+LinkingTo: 
+    Rcpp
+SystemRequirements: C++11
+NeedsCompilation: yes
+RoxygenNote: 7.3.3
