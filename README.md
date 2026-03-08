@@ -10,11 +10,10 @@
 
 ### Key Features
 - Generate ILP models for **single-primer** and **primer-pair** selection strategies
-- Optimize constraints via independent set analysis for improved computational efficiency
 - Parse solutions from popular ILP solvers (e.g., **SCIP**)
 - Visualize selected primer pairs and channel assignments
 - Support for multiple fluorescence channels, amplicon size ranges, and annealing temperature constraints
-
+- Optimize constraints
 ## Installation
 
 ### Prerequisites
@@ -112,11 +111,28 @@ plots$amplicon_plot
 ### 3. Constraint Optimization
 
 ``` r
-
+# Many MIPs have a large number of constraints of the type X + Y <= 1. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints.
 library(multiplexILP)
 library(stringr)
 
-# Generate raw constraints
+gen_cons<-function(n=20, percent=0.8){
+  
+  result <- expand.grid(i = 1:(n-1), j = 1:(n-1));
+  result <- result[result$j > result$i, ];
+  x <- result$i;
+  y <- result$j;
+  
+  n_keep <- floor(length(x) * percent)  # 保留90%
+  keep_idx <- sample(length(x), n_keep)  # 随机选择要保留的位置
+  
+  x_trimmed <- x[keep_idx]
+  y_trimmed <- y[keep_idx]
+  
+  cons<-str_c("X", x_trimmed," + X",  y_trimmed," <= 1")
+  unique(cons)
+  
+}
+# Generate raw constraints randomly
 raw_constraints <- gen_cons(n = 60, percent = 0.9)
 
 # Optimize constraints
@@ -128,18 +144,16 @@ cat("Optimized:", length(optimized_cons), "constraints\n")
 
 ![](man/figures/constraint_coversion_01.png)
 
-### Single Primer Model
+### Key Variables in Single Primer Model
 
-| Variable    | Type   | Description                                           |
-|------------------------|------------------------|------------------------|
-| $X_i$       | Binary | Indicates if primer $i$ is selected                   |
-| $P_k$       | Binary | Indicates if locus $k$ is selected                    |
-| $C_{k,t}$   | Binary | Assigns locus $k$ to channel $t$                      |
-| $D_{k,l}$   | Binary | Indicates if loci $k$ and $l$ are in the same channel |
-| $E_{k,l,t}$ | Binary | Auxiliary variable for linearization                  |
-| $Z_k$       | Binary | Indicates if locus $k$ is not selected                |
+| Variable  | Type   | Description                                           |
+|-----------|--------|-------------------------------------------------------|
+| $X_i$     | Binary | Indicates if primer $i$ is selected                   |
+| $P_k$     | Binary | Indicates if locus $k$ is selected                    |
+| $C_{k,t}$ | Binary | Assigns locus $k$ to channel $t$                      |
+| $D_{k,l}$ | Binary | Indicates if loci $k$ and $l$ are in the same channel |
 
-### Primer Pair Model
+### Key Variables in Primer Pair Model
 
 | Variable  | Type   | Description                                           |
 |-----------|--------|-------------------------------------------------------|
@@ -152,9 +166,9 @@ cat("Optimized:", length(optimized_cons), "constraints\n")
 
 The package generates the following files:
 
--   `.lp`: ILP model file for SCIP solver
-
 -   `.tsv`: Primer information file with indices and properties
+
+-   `.lp`: ILP model file for SCIP solver
 
 -   `.txt`: Parsed solution file with selected primers/channels
 
@@ -167,8 +181,6 @@ The package generates the following files:
 1.  **SCIP not found**: Ensure SCIP is installed and the `scip` executable is in your system `PATH`.
 
 2.  **Compilation errors**: Verify a C++11 compiler is installed and configured with R.
-
-3.  **Memory issues**: Use `convert_constraints()` to reduce the number of constraints for large datasets.
 
 ## License
 

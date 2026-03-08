@@ -53,11 +53,17 @@ generate_primer_pair_data <- function(n_pairs = 2000,
   
   primers_5 <- generate_random_primer(n_pairs)
   primers_3 <- generate_random_primer(n_pairs)
-  
   # 5. ID和位点分配
   ids <- paste0("P", 1:n_pairs)  # 引物对ID
   ids_5 <- paste0("P", 1:n_pairs, "_5")
   ids_3 <- paste0("P", 1:n_pairs, "_3")
+  # 6. 基本属性
+  dis_5 <- rep(1.0, n_pairs)
+  dis_3 <- rep(1.0, n_pairs)
+  temp_5 <- rep(60.0, n_pairs)
+  temp_3 <- rep(60.0, n_pairs)
+  
+  
   
   # 确保每个位点至少有1个引物对
   primer_per_locus <- ceiling(n_pairs / n_loci)
@@ -72,12 +78,7 @@ generate_primer_pair_data <- function(n_pairs = 2000,
     }
   }
   
-  # 6. 基本属性
-  dis_5 <- rep(1.0, n_pairs)
-  dis_3 <- rep(1.0, n_pairs)
-  temp_5 <- rep(60.0, n_pairs)
-  temp_3 <- rep(60.0, n_pairs)
-  
+
   # 7. 扩增子大小 - 每个位点内使用相同的扩增子范围
   amplicon_size_low <- integer(n_pairs)
   amplicon_size_high <- integer(n_pairs)
@@ -290,6 +291,7 @@ generate_single_primer_data <- function(n_primers = 100,
   primer_temp <- rep(52, length(primers))
   distances <- sample(10:100, n_primers, replace = TRUE)
   
+  
   # 分配5'和3'端（确保每个位点都有5'和3'引物）
   cat("分配5'和3'端引物...\n")
   primer53 <- character(n_primers)
@@ -307,6 +309,7 @@ generate_single_primer_data <- function(n_primers = 100,
       locus_ids[start_idx:end_idx] <- loci[i]
     }
   }
+  
   
   # 为每个位点分配5'和3'引物
   for (locus in unique(locus_ids)) {

@@ -34,6 +34,9 @@ List generate_correct_multiplex_ilp_locus_C_fixed_binary(
   
 ) {
   
+  
+  
+  
   int num_channels=num_channels_v.at(0);
   double distance_weight = 0.1;
   int size_gap =size_gap_v.at(0);
@@ -42,6 +45,12 @@ List generate_correct_multiplex_ilp_locus_C_fixed_binary(
   
   
   int n = primers_5.size();
+  
+  
+  if(n>30000){
+    Rcpp::Rcout << " too many primers  " << "\n"; 
+    
+  }
   
   // 1. 建立引物对信息
   struct PrimerPair {

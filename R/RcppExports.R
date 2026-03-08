@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 convert_constraints <- function(input) {
-    .Call('_multiplexILP_convert_constraints', PACKAGE = 'multiplexILP', input)
+    .Call(`_multiplexILP_convert_constraints`, input)
 }
 
 generate_correct_multiplex_ilp_locus_C_fixed_binary <- function(primers_5, primers_3, ids_5, ids_3, str_loci_all, dis_5, dis_3, temp_5, temp_3, weights, amplicon_size_low, amplicon_size_high, compatible_pairs, num_channels_v, size_gap_v = 10L, lower_bound = as.numeric( c(0))) {
-    .Call('_multiplexILP_generate_correct_multiplex_ilp_locus_C_fixed_binary', PACKAGE = 'multiplexILP', primers_5, primers_3, ids_5, ids_3, str_loci_all, dis_5, dis_3, temp_5, temp_3, weights, amplicon_size_low, amplicon_size_high, compatible_pairs, num_channels_v, size_gap_v, lower_bound)
+    .Call(`_multiplexILP_generate_correct_multiplex_ilp_locus_C_fixed_binary`, primers_5, primers_3, ids_5, ids_3, str_loci_all, dis_5, dis_3, temp_5, temp_3, weights, amplicon_size_low, amplicon_size_high, compatible_pairs, num_channels_v, size_gap_v, lower_bound)
 }
 
 generate_multiplex_ilp_single_primers_direct <- function(primers, primer_ids, primer53, primer_temp, locus_ids, distances, copy_length_max, copy_length_min, repeat_distances, compatible_pairs, num_channels_v, size_gap_v = 10L) {
-    .Call('_multiplexILP_generate_multiplex_ilp_single_primers_direct', PACKAGE = 'multiplexILP', primers, primer_ids, primer53, primer_temp, locus_ids, distances, copy_length_max, copy_length_min, repeat_distances, compatible_pairs, num_channels_v, size_gap_v)
+    .Call(`_multiplexILP_generate_multiplex_ilp_single_primers_direct`, primers, primer_ids, primer53, primer_temp, locus_ids, distances, copy_length_max, copy_length_min, repeat_distances, compatible_pairs, num_channels_v, size_gap_v)
 }
 

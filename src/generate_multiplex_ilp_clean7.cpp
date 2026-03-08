@@ -39,6 +39,11 @@ List generate_multiplex_ilp_single_primers_direct(
   
   int n = primers.size();  // 引物总数
   
+  if(n>MAX_PRIMERS){
+    Rcpp::Rcout << " too many primers  " << "\n"; 
+    
+  }
+  
   // 1. 建立引物信息结构
   struct PrimerInfo {
     string primer_id;
