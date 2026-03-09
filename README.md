@@ -33,7 +33,7 @@ install.packages(c("Rcpp", "ggplot2", "dplyr", "stringr", "devtools"))
 
 # From GitHub (replace 'username' with actual repo owner)
 library(devtools)
-install_github("limeng/multiplexILP")
+install_github("limeng12/multiplexILP")
 ```
 
 ## Quick Start
@@ -45,24 +45,27 @@ install_github("limeng/multiplexILP")
 library(multiplexILP)
 
 # Generate simulated data
-primer_data <- generate_single_primer_data(
+primer_single_data <- generate_single_primer_data(
   n_primers = 150,
   n_loci = 10,
   num_channels = 2,
   size_gap = 10,
   seed = 123
 )
+View( as.data.frame(primer_single_data[1:9]))
 
 # Generate ILP model
-ilp_output <- gen_ilp_single_primer(primer_data)
+ilp_result <- gen_ilp_single_primer(primer_single_data)
+
 
 # Solve with SCIP (ensure SCIP is in PATH)
-system(paste0("scip -f ", ilp_output$lp_file, " -l sol.txt"))
+unlink("sol.txt")
+system(paste0("scip -f ", ilp_result$lp_file, " -l sol.txt"))
 
 # Parse results
 parsed_results <- parse_scip_single_primer_solution(
   scip_output_file = "sol.txt",
-  primers_info_file = ilp_output$primers_info_file,
+  primers_info_file = ilp_result$primers_info_file,
   output_prefix = "single_primer_analysis"
 )
 
@@ -88,16 +91,19 @@ primer_pair_data <- generate_primer_pair_data(
   seed = 1123
 )
 
+View( as.data.frame(primer_pair_data[1:12]))
+
 # Generate ILP model
-ilp_output <- gen_ilp_primer_pair(primer_pair_data, lower_bound = 0)
+ilp_result <- gen_ilp_primer_pair(primer_pair_data, lower_bound = 0)
 
 # Solve with SCIP
-system(paste0("scip -f ", ilp_output$lp_file, " -l sol.txt"))
+unlink("sol.txt")
+system(paste0("scip -f ", ilp_result$lp_file, " -l sol.txt"))
 
 # Parse results
 parsed_results <- parse_scip_locus_C_kt_solution(
   scip_output_file = "sol.txt",
-  primers_info_file = ilp_output$primers_info_file,
+  primers_info_file = ilp_result$primers_info_file,
   output_prefix = "primer_pair_analysis"
 )
 
@@ -110,8 +116,9 @@ plots$amplicon_plot
 
 ### 3. Constraint Optimization
 
+-   Many MIPs have a large number of constraints of the type X + Y \<= 1. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints using independent set trick.
+
 ``` r
-# Many MIPs have a large number of constraints of the type X + Y <= 1. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints.
 library(multiplexILP)
 library(stringr)
 
@@ -139,7 +146,11 @@ raw_constraints <- gen_cons(n = 60, percent = 0.9)
 optimized_cons <- convert_constraints(raw_constraints)
 
 cat("Original:", length(raw_constraints), "constraints\n")
+cat("Original (10):", (raw_constraints)[1:10], sep = "\n")
+
+
 cat("Optimized:", length(optimized_cons), "constraints\n")
+cat("Optimized (5):", (optimized_cons)[1:5], sep = "\n")
 ```
 
 ![](man/figures/constraint_coversion_01.png)
@@ -184,4 +195,4 @@ The package generates the following files:
 
 ## License
 
-This project is licensed under the **GPL-3 License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Apache 2.0 License** - see the [LICENSE](LICENSE) file for details.
