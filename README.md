@@ -22,6 +22,7 @@
 - **SCIP Solver** (>= 8.0.0) [Download](https://www.scipopt.org/)
 
 ### Install Dependencies
+- #conda install --channel conda-forge scip
 ```r
 # Install CRAN packages
 install.packages(c("Rcpp", "ggplot2", "dplyr", "stringr", "devtools"))
