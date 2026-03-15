@@ -1,29 +1,28 @@
-``` markdown
-
 # multiplexILP: Multiplex PCR Design Using Integer Linear Programming
-
-
 
 ## Overview
 
 `multiplexILP` is an R package for designing multiplex PCR assays using Integer Linear Programming (ILP). It leverages mathematical optimization to select optimal primer sets, addressing key challenges such as primer compatibility, multi-channel fluorescence assignment, and amplicon size optimization in multiplex PCR experiments.
 
 ### Key Features
-- Generate ILP models for **single-primer** and **primer-pair** selection strategies
-- Parse solutions from popular ILP solvers (e.g., **SCIP**)
-- Visualize selected primer pairs and channel assignments
-- Support for multiple fluorescence channels, amplicon size ranges, and annealing temperature constraints
-- Optimize constraints
-## Installation
+
+-   Generate ILP models for **single-primer** and **primer-pair** selection strategies
+-   Parse solutions from popular ILP solvers (e.g., **SCIP**)
+-   Visualize selected primer pairs and channel assignments
+-   Support for multiple fluorescence channels, amplicon size ranges, and annealing temperature constraints
+-   Optimize constraints \## Installation
 
 ### Prerequisites
-- R (>= 3.5.0)
-- A C++11 compatible compiler (GCC, Clang, or Rtools for Windows)
-- **SCIP Solver** (>= 8.0.0) [Download](https://www.scipopt.org/)
+
+-   R (\>= 3.5.0)
+-   A C++11 compatible compiler (GCC, Clang, or Rtools for Windows)
+-   **SCIP Solver** (\>= 8.0.0) [Download](https://www.scipopt.org/)
 
 ### Install Dependencies
-- #conda install --channel conda-forge scip
-```r
+
+-   #conda install --channel conda-forge scip
+
+``` r
 # Install CRAN packages
 install.packages(c("Rcpp", "ggplot2", "dplyr", "stringr", "devtools"))
 ```
