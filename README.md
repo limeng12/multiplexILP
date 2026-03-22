@@ -10,7 +10,9 @@
 -   Parse solutions from popular ILP solvers (e.g., **SCIP**)
 -   Visualize selected primer pairs and channel assignments
 -   Support for multiple fluorescence channels, amplicon size ranges, and annealing temperature constraints
--   Optimize constraints \## Installation
+-   Optimize constraints 
+
+## Installation
 
 ### Prerequisites
 
