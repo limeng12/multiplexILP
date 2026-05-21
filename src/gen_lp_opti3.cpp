@@ -890,7 +890,7 @@ List optimize_constraints_corrected_fixed(vector<int> from, vector<int> to,
   }
   
   // 2. 构建节点到set的映射
-  vector<int> node_to_set(10000, -1);
+  vector<int> node_to_set(1000000, -1);
   for (size_t set_id = 0; set_id < independent_sets.size(); set_id++) {
     for (int node : independent_sets[set_id]) {
       node_to_set[node] = set_id;
@@ -1044,9 +1044,9 @@ void generate_final_lp2(IntegerVector from_vec, IntegerVector to_vec,
 
 
 // [[Rcpp::export]]
-CharacterVector convert_constraints(CharacterVector input) {
+vector<string> convert_constraints_cpp(vector<string> origin_cons) {
   
-  vector<string> origin_cons=Rcpp::as<std::vector<std::string>>(input);
+  //vector<string> origin_cons=Rcpp::as<std::vector<std::string>>(input);
   //vector<int> from=parse_to_pair(origin_cons).first;
   //vector<int> to=parse_to_pair(origin_cons).second;
   
@@ -1112,8 +1112,20 @@ CharacterVector convert_constraints(CharacterVector input) {
   
   
   
+  return (final_constraints);
+}
+
+
+
+// [[Rcpp::export]]
+CharacterVector convert_constraints(CharacterVector input) {
+  vector<string> origin_cons=Rcpp::as<std::vector<std::string>>(input);
+  vector<string> final_constraints=convert_constraints_cpp(origin_cons);
+
   return wrap(final_constraints);
 }
+
+
 
 
 
