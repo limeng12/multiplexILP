@@ -16,7 +16,8 @@ LazyData: true
 Imports:
     Rcpp (>= 1.0.0),
     ggplot2,
-    dplyr
+    dplyr,
+    data.table
 LinkingTo: 
     Rcpp
 SystemRequirements: C++11

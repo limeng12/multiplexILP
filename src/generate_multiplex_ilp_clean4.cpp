@@ -58,7 +58,7 @@ List generate_correct_multiplex_ilp_locus_C_fixed_binary(
     string locus;
     string id5, id3;
     string primers5,primers3;
-    string temp5,temp3;
+    float temp5,temp3;
     double weight;
     double distance;
     double amplicon_low, amplicon_high;
