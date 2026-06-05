@@ -120,7 +120,7 @@ plots$amplicon_plot
 
 -   Many MIPs have a large number of constraints of the type X + Y \<= 1. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints using independent set trick.
 
-#### one-line example
+#### One-line example
 ```r
 library(multiplexILP)
 
@@ -131,7 +131,7 @@ optimize_clique( lpfile, "ilp_problem_opti.lp")
 
 ```
 
-#### detail explain
+#### Detail explain
 ``` r
 library(multiplexILP)
 library(stringr)
