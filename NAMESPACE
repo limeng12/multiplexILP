@@ -9,6 +9,8 @@ export(parse_scip_locus_C_kt_solution)
 export(parse_scip_single_primer_solution)
 import(dplyr)
 import(ggplot2)
+import(data.table)
+importFrom(readr, read_lines, write_lines)
 
 useDynLib(multiplexILP, .registration = TRUE)
 importFrom(Rcpp, sourceCpp)
