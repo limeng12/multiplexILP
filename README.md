@@ -118,7 +118,7 @@ plots$amplicon_plot
 
 ### 3. Constraint Optimization
 
--   Many MIPs have a large number of constraints of the type X + Y \<= 1. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints using independent set trick.
+-   Many MIPs have a large number of constraints of the type X + Y \<= 1, especially in graph-related problems. For any number of such constraints, very high compression ratios can be achieved without altering the original meaning of the constraints using the independent set trick.
 
 #### One-line example
 ```r
